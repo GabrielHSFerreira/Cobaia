@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Cobaia.JobScheduler": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
