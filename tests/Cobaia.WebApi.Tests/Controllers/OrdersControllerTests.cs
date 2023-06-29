@@ -26,7 +26,7 @@ namespace Cobaia.WebApi.Tests.Controllers
             var controller = new OrdersController(
                 sender,
                 Substitute.For<ILogger<OrdersController>>(),
-                CobaiaWebApiContextFactory.CreateInMemory());
+                CobaiaContextFactory.CreateInMemory());
 
             // Act
             var response = await controller.SubmitOrder(request);

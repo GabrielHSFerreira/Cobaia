@@ -27,7 +27,7 @@ namespace Cobaia.WebApi
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddDbContext<CobaiaWebApiContext>(x => x.UseInMemoryDatabase("CobaiaWebApi"));
+            builder.Services.AddDbContext<CobaiaContext>(x => x.UseInMemoryDatabase("CobaiaWebApi"));
             builder.Services.AddSingleton(Log.Logger);
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(Program)));
             builder.Host.UseSerilog();

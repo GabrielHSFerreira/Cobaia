@@ -4,15 +4,15 @@ using System;
 
 namespace Cobaia.WebApi.Tests.Utils
 {
-    internal static class CobaiaWebApiContextFactory
+    internal static class CobaiaContextFactory
     {
-        public static CobaiaWebApiContext CreateInMemory()
+        public static CobaiaContext CreateInMemory()
         {
-            var options = new DbContextOptionsBuilder<CobaiaWebApiContext>()
+            var options = new DbContextOptionsBuilder<CobaiaContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
-            var context = new CobaiaWebApiContext(options);
+            var context = new CobaiaContext(options);
             context.Database.EnsureCreated();
 
             return context;

@@ -12,9 +12,9 @@ namespace Cobaia.WebApi.Commands.SubmitOrder
     public class SubmitOrderHandler : IRequestHandler<SubmitOrderCommand, CreatedEntity>
     {
         private readonly ILogger<SubmitOrderHandler> _logger;
-        private readonly CobaiaWebApiContext _context;
+        private readonly CobaiaContext _context;
 
-        public SubmitOrderHandler(ILogger<SubmitOrderHandler> logger, CobaiaWebApiContext context)
+        public SubmitOrderHandler(ILogger<SubmitOrderHandler> logger, CobaiaContext context)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _context = context ?? throw new ArgumentNullException(nameof(context));

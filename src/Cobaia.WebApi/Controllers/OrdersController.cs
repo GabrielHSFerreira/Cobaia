@@ -20,9 +20,9 @@ namespace Cobaia.WebApi.Controllers
 
         private readonly ISender _sender;
         private readonly ILogger<OrdersController> _logger;
-        private readonly CobaiaWebApiContext _context;
+        private readonly CobaiaContext _context;
 
-        public OrdersController(ISender sender, ILogger<OrdersController> logger, CobaiaWebApiContext context)
+        public OrdersController(ISender sender, ILogger<OrdersController> logger, CobaiaContext context)
         {
             _sender = sender ?? throw new ArgumentNullException(nameof(sender));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
