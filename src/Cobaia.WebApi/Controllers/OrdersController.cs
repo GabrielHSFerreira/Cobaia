@@ -3,7 +3,7 @@ using Cobaia.WebApi.Persistence;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,9 +15,9 @@ namespace Cobaia.WebApi.Controllers
     {
         private const string Route = "v1/orders";
         private readonly CobaiaWebApiContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<OrdersController> _logger;
 
-        public OrdersController(CobaiaWebApiContext context, ILogger logger)
+        public OrdersController(CobaiaWebApiContext context, ILogger<OrdersController> logger)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -27,7 +27,7 @@ namespace Cobaia.WebApi.Controllers
         [ProducesResponseType(typeof(CreatedEntity), StatusCodes.Status200OK)]
         public async Task<IActionResult> SubmitOrder(SubmitOrder request)
         {
-            _logger.Information("Creating order {orderId}", request.OrderId);
+            _logger.LogInformation("Creating order {orderId}", request.OrderId);
 
             var order = new Order(request.OrderId, DateTime.UtcNow);
 
@@ -62,7 +62,7 @@ namespace Cobaia.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AcceptOrder(Guid id)
         {
-            _logger.Information("Accepting order {orderId}", id);
+            _logger.LogInformation("Accepting order {orderId}", id);
 
             var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == id);
 
