@@ -5,6 +5,7 @@
 		<Nullable>enable</Nullable>
 		<Platforms>AnyCPU;x64</Platforms>
 		<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -16,7 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Cobaia.Persistence\Cobaia.Persistence.csproj" />
+		<ProjectReference Include="..\Cobaia.Persistence\Cobaia.Persistence.csproj" />
 	</ItemGroup>
 
 </Project>

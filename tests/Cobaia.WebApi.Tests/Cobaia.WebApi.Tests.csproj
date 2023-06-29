@@ -5,6 +5,7 @@
 		<Nullable>enable</Nullable>
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -23,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\Cobaia.WebApi\Cobaia.WebApi.csproj" />
+		<ProjectReference Include="..\..\src\Cobaia.WebApi\Cobaia.WebApi.csproj" />
 	</ItemGroup>
 
 </Project>
