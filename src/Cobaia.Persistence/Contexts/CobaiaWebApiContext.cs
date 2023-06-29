@@ -1,7 +1,7 @@
-﻿using Cobaia.WebApi.Models;
+﻿using Cobaia.Domain.Orders;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cobaia.WebApi.Persistence
+namespace Cobaia.Persistence.Contexts
 {
     public class CobaiaWebApiContext : DbContext
     {

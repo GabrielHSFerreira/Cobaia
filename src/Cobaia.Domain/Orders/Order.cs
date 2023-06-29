@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cobaia.WebApi.Models
+namespace Cobaia.Domain.Orders
 {
     public class Order
     {

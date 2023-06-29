@@ -1,4 +1,4 @@
-﻿namespace Cobaia.WebApi.Models
+﻿namespace Cobaia.Domain.Orders
 {
     public enum OrderStatus
     {

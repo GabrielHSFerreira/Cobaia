@@ -1,4 +1,4 @@
-using Cobaia.WebApi.Persistence;
+using Cobaia.Persistence.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

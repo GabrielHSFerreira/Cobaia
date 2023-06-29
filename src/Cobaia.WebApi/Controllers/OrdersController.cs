@@ -1,6 +1,7 @@
-﻿using Cobaia.WebApi.Commands.SubmitOrder;
+﻿using Cobaia.Domain.Orders;
+using Cobaia.Persistence.Contexts;
+using Cobaia.WebApi.Commands.SubmitOrder;
 using Cobaia.WebApi.Models;
-using Cobaia.WebApi.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

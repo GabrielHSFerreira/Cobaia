@@ -1,5 +1,6 @@
-﻿using Cobaia.WebApi.Models;
-using Cobaia.WebApi.Persistence;
+﻿using Cobaia.Domain.Orders;
+using Cobaia.Persistence.Contexts;
+using Cobaia.WebApi.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
