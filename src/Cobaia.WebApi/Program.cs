@@ -18,7 +18,7 @@ namespace Cobaia.WebApi
                 .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.File(new JsonFormatter(renderMessage: true), "log.json")
+                .WriteTo.File(new JsonFormatter(renderMessage: true), ".log", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
             // Wire up application parts

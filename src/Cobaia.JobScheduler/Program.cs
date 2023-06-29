@@ -15,7 +15,7 @@ namespace Cobaia.JobScheduler
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.File(new JsonFormatter(renderMessage: true), "log.json")
+                .WriteTo.File(new JsonFormatter(renderMessage: true), ".log", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
             // Wire up application parts
