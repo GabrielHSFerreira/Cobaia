@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{68457528-412F-4957-ACF7-A1C8FF473736}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Daemon", "Daemon", "{A141C7A5-C06C-4987-AB33-B72F22A43924}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cobaia.WebApi", "src\Cobaia.WebApi\Cobaia.WebApi.csproj", "{92767913-B13A-4888-AA5B-C8B773F1E943}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cobaia.JobScheduler", "src\Cobaia.JobScheduler\Cobaia.JobScheduler.csproj", "{E631A859-597E-4306-B894-BA81AD54E7FA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{097CBC35-D921-42CE-AB6F-F64FD243A698}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cobaia.WebApi.Tests", "tests\Cobaia.WebApi.Tests\Cobaia.WebApi.Tests.csproj", "{E772C746-511F-46D1-B3DF-4F9F1AF07EE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cobaia.WebApi.Tests", "tests\Cobaia.WebApi.Tests\Cobaia.WebApi.Tests.csproj", "{E772C746-511F-46D1-B3DF-4F9F1AF07EE6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{17699DF2-261E-42EC-B086-CDC0B6A1F46A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,8 +50,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{92767913-B13A-4888-AA5B-C8B773F1E943} = {68457528-412F-4957-ACF7-A1C8FF473736}
-		{E631A859-597E-4306-B894-BA81AD54E7FA} = {A141C7A5-C06C-4987-AB33-B72F22A43924}
+		{92767913-B13A-4888-AA5B-C8B773F1E943} = {17699DF2-261E-42EC-B086-CDC0B6A1F46A}
+		{E631A859-597E-4306-B894-BA81AD54E7FA} = {17699DF2-261E-42EC-B086-CDC0B6A1F46A}
 		{E772C746-511F-46D1-B3DF-4F9F1AF07EE6} = {097CBC35-D921-42CE-AB6F-F64FD243A698}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
