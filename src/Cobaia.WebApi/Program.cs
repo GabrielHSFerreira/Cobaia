@@ -29,6 +29,7 @@ namespace Cobaia.WebApi
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<CobaiaWebApiContext>(x => x.UseInMemoryDatabase("CobaiaWebApi"));
             builder.Services.AddSingleton(Log.Logger);
+            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(Program)));
             builder.Host.UseSerilog();
 
             // Build requests pipeline

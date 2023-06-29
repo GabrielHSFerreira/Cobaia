@@ -1,5 +1,7 @@
-﻿using Cobaia.WebApi.Models;
+﻿using Cobaia.WebApi.Commands.SubmitOrder;
+using Cobaia.WebApi.Models;
 using Cobaia.WebApi.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,27 +16,24 @@ namespace Cobaia.WebApi.Controllers
     public class OrdersController : ControllerBase
     {
         private const string Route = "v1/orders";
-        private readonly CobaiaWebApiContext _context;
-        private readonly ILogger<OrdersController> _logger;
 
-        public OrdersController(CobaiaWebApiContext context, ILogger<OrdersController> logger)
+        private readonly ISender _sender;
+        private readonly ILogger<OrdersController> _logger;
+        private readonly CobaiaWebApiContext _context;
+
+        public OrdersController(ISender sender, ILogger<OrdersController> logger, CobaiaWebApiContext context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _sender = sender ?? throw new ArgumentNullException(nameof(sender));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         [HttpPost($"{Route}:submit")]
         [ProducesResponseType(typeof(CreatedEntity), StatusCodes.Status200OK)]
-        public async Task<IActionResult> SubmitOrder(SubmitOrder request)
+        public async Task<IActionResult> SubmitOrder(SubmitOrderCommand request)
         {
-            _logger.LogInformation("Creating order {orderId}", request.OrderId);
-
-            var order = new Order(request.OrderId, DateTime.UtcNow);
-
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
-
-            return Ok(new CreatedEntity(order.Id, order.CreatedDate));
+            var response = await _sender.Send(request);
+            return Ok(response);
         }
 
         [HttpGet(Route)]
