@@ -5,7 +5,6 @@ using Cobaia.WebApi.Tests.Utils;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NSubstitute;
 using System;
 using System.Threading.Tasks;
@@ -25,7 +24,6 @@ namespace Cobaia.WebApi.Tests.Controllers
             sender.Send(request).Returns(createdEntity);
             var controller = new OrdersController(
                 sender,
-                Substitute.For<ILogger<OrdersController>>(),
                 CobaiaContextFactory.CreateInMemory());
 
             // Act

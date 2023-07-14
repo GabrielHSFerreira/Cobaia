@@ -1,12 +1,12 @@
 ﻿using Cobaia.Domain.Orders;
 using Cobaia.Persistence.Contexts;
+using Cobaia.WebApi.Commands.AcceptOrder;
 using Cobaia.WebApi.Commands.SubmitOrder;
 using Cobaia.WebApi.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,13 +19,11 @@ namespace Cobaia.WebApi.Controllers
         private const string Route = "v1/orders";
 
         private readonly ISender _sender;
-        private readonly ILogger<OrdersController> _logger;
         private readonly CobaiaContext _context;
 
-        public OrdersController(ISender sender, ILogger<OrdersController> logger, CobaiaContext context)
+        public OrdersController(ISender sender, CobaiaContext context)
         {
             _sender = sender ?? throw new ArgumentNullException(nameof(sender));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
@@ -62,16 +60,7 @@ namespace Cobaia.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AcceptOrder(Guid id)
         {
-            _logger.LogInformation("Accepting order {orderId}", id);
-
-            var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (order == null)
-                return NotFound();
-
-            order.Accept();
-            await _context.SaveChangesAsync();
-
+            await _sender.Send(new AcceptOrderCommand { OrderId = id });
             return NoContent();
         }
     }

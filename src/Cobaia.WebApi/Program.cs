@@ -1,4 +1,5 @@
 using Cobaia.Persistence.Contexts;
+using Cobaia.WebApi.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +25,7 @@ namespace Cobaia.WebApi
             // Wire up application parts
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(x => x.Filters.Add<ExceptionActionFilter>());
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<CobaiaContext>(x => x.UseInMemoryDatabase("CobaiaWebApi"));
