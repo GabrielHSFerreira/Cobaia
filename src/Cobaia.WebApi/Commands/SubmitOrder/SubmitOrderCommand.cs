@@ -6,6 +6,6 @@ namespace Cobaia.WebApi.Commands.SubmitOrder
 {
     public record SubmitOrderCommand : IRequest<CreatedEntity>
     {
-        public Guid OrderId { get; set; }
+        public Guid OrderId { get; init; }
     }
 }
