@@ -1,5 +1,6 @@
 using Cobaia.Persistence.Contexts;
 using Cobaia.WebApi.Filters;
+using Cobaia.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,7 @@ namespace Cobaia.WebApi
             builder.Services.AddDbContext<CobaiaContext>(x => x.UseInMemoryDatabase("CobaiaWebApi"));
             builder.Services.AddSingleton(Log.Logger);
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(Program)));
+            builder.Services.AddSingleton<IDateProvider, HostDateProvider>();
             builder.Host.UseSerilog();
 
             // Build requests pipeline

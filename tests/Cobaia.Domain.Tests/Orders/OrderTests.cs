@@ -14,7 +14,7 @@ namespace Cobaia.Domain.Tests.Orders
             var order = new Order(Guid.NewGuid(), DateTime.UtcNow);
 
             // Act
-            order.Accept();
+            order.Accept(DateTime.UtcNow);
 
             // Assert
             order.Status
