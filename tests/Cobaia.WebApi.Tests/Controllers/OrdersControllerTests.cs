@@ -37,5 +37,22 @@ namespace Cobaia.WebApi.Tests.Controllers
                 .Should()
                 .Be(createdEntity);
         }
+
+        [Fact]
+        public async Task AcceptOrder_OrderAccepted_ReturnsNoContent()
+        {
+            // Arrange
+            var controller = new OrdersController(
+                Substitute.For<ISender>(),
+                CobaiaContextFactory.CreateInMemory());
+
+            // Act
+            var response = await controller.AcceptOrder(Guid.NewGuid());
+
+            // Assert
+            response
+                .Should()
+                .BeOfType<NoContentResult>();
+        }
     }
 }
