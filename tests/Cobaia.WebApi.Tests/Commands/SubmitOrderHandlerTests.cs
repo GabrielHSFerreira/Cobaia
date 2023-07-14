@@ -23,19 +23,53 @@ namespace Cobaia.WebApi.Tests.Commands
             var orderId = Guid.NewGuid();
 
             // Act
-            var result = await handler.Handle(new SubmitOrderCommand { OrderId = orderId }, CancellationToken.None);
+            await handler.Handle(new SubmitOrderCommand { OrderId = orderId }, CancellationToken.None);
             var createdOrder = await context.Orders.FindAsync(orderId);
 
             // Assert
             createdOrder
                 .Should()
                 .NotBeNull();
+        }
+
+        [Fact]
+        public async Task Handle_NewOrder_CreatedWithReceivedId()
+        {
+            // Arrange
+            var context = CobaiaContextFactory.CreateInMemory();
+            var handler = new SubmitOrderHandler(
+                Substitute.For<ILogger<SubmitOrderHandler>>(),
+                context);
+            var orderId = Guid.NewGuid();
+
+            // Act
+            await handler.Handle(new SubmitOrderCommand { OrderId = orderId }, CancellationToken.None);
+            var createdOrder = await context.Orders.FindAsync(orderId);
+
+            // Assert
             createdOrder!.Id
                 .Should()
                 .Be(orderId);
+        }
+
+        [Fact]
+        public async Task Handle_NewOrder_ResultWithCreatedOrderId()
+        {
+            // Arrange
+            var context = CobaiaContextFactory.CreateInMemory();
+            var handler = new SubmitOrderHandler(
+                Substitute.For<ILogger<SubmitOrderHandler>>(),
+                context);
+            var orderId = Guid.NewGuid();
+
+            // Act
+            var result = await handler.Handle(new SubmitOrderCommand { OrderId = orderId }, CancellationToken.None);
+            var createdOrder = await context.Orders.FindAsync(orderId);
+
+            // Assert
             result.CreatedId
                 .Should()
-                .Be(orderId);
+                .Be(createdOrder!.Id);
         }
     }
 }
