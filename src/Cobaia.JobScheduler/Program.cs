@@ -26,8 +26,6 @@ namespace Cobaia.JobScheduler
                 services.AddSingleton(Log.Logger);
                 services.AddQuartz(quartzConfigurator =>
                 {
-                    quartzConfigurator.UseMicrosoftDependencyInjectionJobFactory();
-
                     quartzConfigurator.ScheduleJob<GreetingsJob>(trigger =>
                         trigger.WithSimpleSchedule(x =>
                             x.WithIntervalInSeconds(5).RepeatForever()));
