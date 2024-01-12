@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MassTransit;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
@@ -14,10 +15,18 @@ namespace Cobaia.MessageConsumer
                 .CreateLogger();
 
             var builder = Host.CreateDefaultBuilder(args);
+
             builder.ConfigureServices(services =>
             {
                 services.AddSingleton(Log.Logger);
+                services.AddMassTransit(configurator =>
+                {
+                    configurator.UsingRabbitMq((context, config) =>
+                    {
+                    });
+                });
             });
+
             builder.UseSerilog();
 
             var app = builder.Build();
