@@ -1,7 +1,7 @@
-﻿using Cobaia.WebApi.Commands.SubmitOrder;
+﻿using Cobaia.UnitTests.WebApi.Utils;
+using Cobaia.WebApi.Commands.SubmitOrder;
 using Cobaia.WebApi.Controllers;
 using Cobaia.WebApi.Models;
-using Cobaia.WebApi.Tests.Utils;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +10,7 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Cobaia.WebApi.Tests.Controllers
+namespace Cobaia.UnitTests.WebApi.Controllers
 {
     public class OrdersControllerTests
     {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Cobaia.WebApi.Tests.Utils
+namespace Cobaia.UnitTests.WebApi.Utils
 {
     internal static class CobaiaContextFactory
     {

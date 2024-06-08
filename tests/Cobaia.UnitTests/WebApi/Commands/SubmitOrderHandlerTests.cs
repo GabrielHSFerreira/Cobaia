@@ -1,5 +1,5 @@
-﻿using Cobaia.WebApi.Commands.SubmitOrder;
-using Cobaia.WebApi.Tests.Utils;
+﻿using Cobaia.UnitTests.WebApi.Utils;
+using Cobaia.WebApi.Commands.SubmitOrder;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Cobaia.WebApi.Tests.Commands
+namespace Cobaia.UnitTests.WebApi.Commands
 {
     public class SubmitOrderHandlerTests
     {

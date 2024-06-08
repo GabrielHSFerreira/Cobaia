@@ -3,7 +3,7 @@ using FluentAssertions;
 using System;
 using Xunit;
 
-namespace Cobaia.Domain.Tests.Orders
+namespace Cobaia.UnitTests.Domain.Orders
 {
     public class OrderTests
     {
