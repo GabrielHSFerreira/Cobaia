@@ -2,37 +2,51 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using System;
 
 namespace Cobaia.Worker
 {
     public static class Program
     {
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .CreateLogger();
 
-            var builder = Host.CreateDefaultBuilder(args);
-
-            builder.ConfigureServices(services =>
+            try
             {
-                services.AddSingleton(Log.Logger);
-                services.AddMassTransit(configurator =>
+                var builder = Host.CreateDefaultBuilder(args);
+
+                builder.ConfigureServices(services =>
                 {
-                    configurator.UsingRabbitMq((context, config) =>
+                    services.AddSingleton(Log.Logger);
+                    services.AddMassTransit(configurator =>
                     {
+                        configurator.UsingRabbitMq((context, config) =>
+                        {
+                        });
                     });
                 });
-            });
 
-            builder.UseSerilog();
+                builder.UseSerilog();
 
-            var app = builder.Build();
-            app.Run();
+                var app = builder.Build();
 
-            Log.CloseAndFlush();
+                app.Run();
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Fatal(ex, "Fatal error crashed application.");
+                return -1;
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
     }
 }

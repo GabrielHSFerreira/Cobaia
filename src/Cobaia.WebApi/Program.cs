@@ -7,52 +7,58 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
-using Serilog.Formatting.Json;
+using System;
 
 namespace Cobaia.WebApi
 {
     public static class Program
     {
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
-            // Create default logger
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.File(new JsonFormatter(renderMessage: true), ".log", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
-            // Wire up application parts
-            var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.AddControllers(x => x.Filters.Add<ExceptionActionFilter>());
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            builder.Services.AddDbContext<CobaiaContext>(x => x.UseInMemoryDatabase("CobaiaWebApi"));
-            builder.Services.AddSingleton(Log.Logger);
-            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(Program)));
-            builder.Services.AddSingleton<IDateProvider, HostDateProvider>();
-            builder.Host.UseSerilog();
-
-            // Build requests pipeline
-            var app = builder.Build();
-
-            app.UseSerilogRequestLogging();
-
-            if (app.Environment.IsDevelopment())
+            try
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                var builder = WebApplication.CreateBuilder(args);
+
+                builder.Host.UseSerilog();
+                builder.Services.AddControllers(x => x.Filters.Add<ExceptionActionFilter>());
+                builder.Services.AddEndpointsApiExplorer();
+                builder.Services.AddSwaggerGen();
+                builder.Services.AddDbContext<CobaiaContext>(x => x.UseInMemoryDatabase("CobaiaWebApi"));
+                builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(Program)));
+                builder.Services.AddSingleton<IDateProvider, HostDateProvider>();
+
+                var app = builder.Build();
+
+                app.UseSerilogRequestLogging();
+
+                if (app.Environment.IsDevelopment())
+                {
+                    app.UseSwagger();
+                    app.UseSwaggerUI();
+                }
+
+                app.UseAuthorization();
+                app.MapControllers();
+
+                app.Run();
+
+                return 0;
             }
-
-            app.UseAuthorization();
-            app.MapControllers();
-
-            // Start application
-            app.Run();
-
-            Log.CloseAndFlush();
+            catch (Exception ex)
+            {
+                Log.Logger.Fatal(ex, "Fatal error crashed application.");
+                return -1;
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
     }
 }
